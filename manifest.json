@@ -6,8 +6,9 @@
     "description": "Filter keywords on Google+ webpage and hide corresponding posts",
     "content_scripts": [
         {
-            "js": ["main.js", "googleminus.js"],
+            "js": ["js/main.js", "js/googleminus.js", "js/options.js"],
             "matches": [ "https://plus.google.com/*" ]
         }
-    ]
+    ],
+    "options_page": "options.html"
 }
