@@ -62,9 +62,9 @@ function eliminate_post_div(post_div) {
 /**
  * Vulnerable class names
  */
-var STREAM_DIV_CLASS_NAME = "pga";
-var POST_DIV_CLASS_NAME = "Yp yt Xa";
-var ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
+const STREAM_DIV_CLASS_NAME = "pga";
+const POST_DIV_CLASS_NAME = "Yp yt Xa";
+const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
 
 /**
  * Main function

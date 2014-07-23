@@ -13,7 +13,7 @@ chrome.runtime.sendMessage({method: "keywords"}, function(response) {
             if (document.readyState === "complete") {
                 filter(keywords);
             }
-        }, 50);
+        }, 300);
     });
 });
 

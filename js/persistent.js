@@ -1,4 +1,4 @@
-var KEYWORDS_KEY = "keywords";
+const KEYWORDS_KEY = "keywords";
 
 // Initialize keywords
 if (localStorage.getItem(KEYWORDS_KEY) === null) {
