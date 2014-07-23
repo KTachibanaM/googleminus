@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+    "name": "Google minus",
+    "version": "0.0.1",
+    "author": "KTachibanaM",
+    "description": "Filter keywords on Google+ webpage and hide corresponding posts",
+    "content_scripts": [
+        {
+            "js": ["main.js", "googleminus.js"],
+            "matches": [ "https://plus.google.com/*" ]
+        }
+    ]
+}
