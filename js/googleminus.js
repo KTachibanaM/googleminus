@@ -1,4 +1,4 @@
-/**
+/*
  * Filter keywords on Google+ webpage and hide corresponding posts
  * Notice that current filtering mechanism is VERY ROUGH
  * Use with caution

@@ -1,7 +1,4 @@
-var keywords = [
-    "菊苣",
-    "NSFW"
-];
+var keywords = get_keywords();
 
 chrome.extension.sendMessage({}, function(response) {
     var readyStateCheckInterval = setInterval(function() {
