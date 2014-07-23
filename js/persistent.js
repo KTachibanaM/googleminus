@@ -1,11 +1,23 @@
 var KEYWORDS_KEY = "keywords";
 
+// Initialize keywords
+if (localStorage.getItem(KEYWORDS_KEY) === null) {
+    localStorage.setItem(KEYWORDS_KEY, "[]");
+}
+
+// Hook up listener for getting keywords
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getKeywords")
+        sendResponse({keywords: get_keywords()});
+    else
+        sendResponse({});
+});
+
 /**
  * Get keywords
  * @returns {Array} keywords array
  */
 function get_keywords() {
-    init_keywords();
     return JSON.parse(localStorage.getItem(KEYWORDS_KEY));
 }
 
@@ -14,7 +26,6 @@ function get_keywords() {
  * @param {String} new_keyword
  */
 function add_keyword(new_keyword) {
-    init_keywords();
     var keywords = localStorage.getItem(KEYWORDS_KEY);
     keywords = JSON.parse(keywords);
 
@@ -29,7 +40,6 @@ function add_keyword(new_keyword) {
  * @param {String} removed_keyword
  */
 function remove_keyword(removed_keyword) {
-    init_keywords();
     var keywords = localStorage.getItem(KEYWORDS_KEY);
     keywords = JSON.parse(keywords);
 
@@ -40,13 +50,4 @@ function remove_keyword(removed_keyword) {
 
     keywords = JSON.stringify(keywords);
     localStorage.setItem(KEYWORDS_KEY, keywords);
-}
-
-/**
- * Init localStorage if not exists
- */
-function init_keywords() {
-    if (localStorage.getItem(KEYWORDS_KEY) === null) {
-        localStorage.setItem(KEYWORDS_KEY, "[]");
-    }
 }

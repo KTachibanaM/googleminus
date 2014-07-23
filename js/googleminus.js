@@ -37,10 +37,11 @@ function my_contains(str1, str2) {
 
 /**
  * Whether a post div contains keyword
+ * @param   {Array} keywords
  * @param   {HTMLDivElement} post_div
  * @returns {boolean}
  */
-function scrutinize_post_div(post_div) {
+function scrutinize_post_div(keywords, post_div) {
 	for (var i = 0 ; i < keywords.length ; ++i) {
 		var keyword = keywords[i];
 		if (my_contains(post_div.outerText, keyword)) {
@@ -55,7 +56,7 @@ function scrutinize_post_div(post_div) {
  * @param {HTMLDivElement} post_div
  */
 function eliminate_post_div(post_div) {
-    post_div.innerHTML = "";
+    post_div.innerHTML = "<div>Filtered</div>";
 }
 
 /**
@@ -85,7 +86,7 @@ function filter(keywords) {
     // Filter
     for (var i = 0 ; i < all_post_divs.length ; ++i) {
         var post_div = all_post_divs[i];
-        if (scrutinize_post_div(post_div)) {
+        if (scrutinize_post_div(keywords, post_div)) {
             console.log("Caught one!");
             eliminate_post_div(post_div);
         }
