@@ -87,7 +87,7 @@ function filter(keywords) {
     for (var i = 0 ; i < all_post_divs.length ; ++i) {
         var post_div = all_post_divs[i];
         if (scrutinize_post_div(keywords, post_div)) {
-            console.log("Caught one!");
+            console.log("---- Caught one!");
             eliminate_post_div(post_div);
         }
     }

@@ -1,4 +1,4 @@
-chrome.runtime.sendMessage({method: "getKeywords"}, function(response) {
+chrome.runtime.sendMessage({method: "keywords"}, function(response) {
     var keywords = response.keywords;
     console.log("---- Greetings from Google minus!");
     console.log("---- Keywords are: ");
@@ -8,9 +8,9 @@ chrome.runtime.sendMessage({method: "getKeywords"}, function(response) {
     console.log("---- Keywords end");
 
     chrome.extension.sendMessage({}, function(response) {
+        console.log("---- Strat filtering");
         var readyStateCheckInterval = setInterval(function() {
             if (document.readyState === "complete") {
-                console.log("---- Start filtering");
                 filter(keywords);
             }
         }, 50);

@@ -7,10 +7,14 @@ if (localStorage.getItem(KEYWORDS_KEY) === null) {
 
 // Hook up listener for getting keywords
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.method == "getKeywords")
+    if (request.method == "keywords")
+    {
         sendResponse({keywords: get_keywords()});
+    }
     else
+    {
         sendResponse({});
+    }
 });
 
 /**
