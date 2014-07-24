@@ -1,14 +1,28 @@
 // Find elements
 var keywords_table = document.getElementById("keywords_table");
 var new_keyword_text_field = document.getElementById("new_keyword_text_field");
-var new_keyword_submit = document.getElementById("new_keyword_submit");
+var new_keyword_button = document.getElementById("new_keyword_button");
+var all_out_radio = document.getElementById("all_out_radio");
+var blacken_keywords_radio = document.getElementById("blacken_keywords_radio");
 
 // Setup submit button listener
-new_keyword_submit.onclick = function() {
+new_keyword_button.onclick = function() {
     var i = keywords_table.rows.length;
     var new_keyword = new_keyword_text_field.value;
     add_keyword(new_keyword);
     insert_a_row(i, new_keyword);
+    new_keyword_text_field.value = "";
+};
+
+// Setup radio listeners
+all_out_radio.onclick = function() {
+    set_filtering_mode("all_out");
+    init_filtering_mode_radios();
+};
+
+blacken_keywords_radio.onclick = function () {
+    set_filtering_mode("blacken_keywords");
+    init_filtering_mode_radios();
 };
 
 /**
@@ -18,6 +32,24 @@ function init_keywords_table() {
     var keywords = get_keywords();
     for (var i = 0 ; i < keywords.length ; ++i) {
         insert_a_row(i, keywords[i])
+    }
+}
+
+function init_filtering_mode_radios() {
+    var filtering_mode = get_filtering_mode();
+    switch (filtering_mode) {
+        case "all_out":
+        {
+            all_out_radio.checked = true;
+            blacken_keywords_radio.checked = false;
+            break;
+        }
+        case "blacken_keywords":
+        {
+            all_out_radio.checked = false;
+            blacken_keywords_radio.checked = true;
+            break;
+        }
     }
 }
 
@@ -40,7 +72,7 @@ function insert_a_row(i, keyword) {
         remove_keyword(keyword);
         remove_a_row(keyword);
     };
-    remove_cell.innerHTML = "<a href=''>X</a>";
+    remove_cell.innerHTML = "<a href=''>(Delete)</a>";
 }
 
 /**
@@ -58,3 +90,4 @@ function remove_a_row(keyword) {
 }
 
 init_keywords_table();
+init_filtering_mode_radios();

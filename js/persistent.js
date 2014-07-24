@@ -1,8 +1,14 @@
 const KEYWORDS_KEY = "keywords";
+const FILTERING_MODE_KEY = "filtering_mode";
 
 // Initialize keywords
 if (localStorage.getItem(KEYWORDS_KEY) === null) {
     localStorage.setItem(KEYWORDS_KEY, "[]");
+}
+
+// Initialize filtering mode
+if (localStorage.getItem(FILTERING_MODE_KEY) === null) {
+    localStorage.setItem(FILTERING_MODE_KEY, "all_out");
 }
 
 // Hook up listener for getting keywords
@@ -54,4 +60,20 @@ function remove_keyword(removed_keyword) {
 
     keywords = JSON.stringify(keywords);
     localStorage.setItem(KEYWORDS_KEY, keywords);
+}
+
+/**
+ * Get current filtering mode
+ * @returns {String}
+ */
+function get_filtering_mode() {
+    return localStorage[FILTERING_MODE_KEY];
+}
+
+/**
+ * Set current filtering mode
+ * @param {String} filtering_mode
+ */
+function set_filtering_mode(filtering_mode) {
+    localStorage[FILTERING_MODE_KEY] = filtering_mode;
 }
