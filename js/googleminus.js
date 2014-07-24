@@ -52,10 +52,12 @@ function scrutinize_post_div(keywords, post_div) {
 }
 
 /**
- * Eliminate the post div
+ * Filter the post div
+ * @param {Array} keywords
  * @param {HTMLDivElement} post_div
+ * @param {String} filtering_mode
  */
-function eliminate_post_div(post_div) {
+function filter_post_div(keywords, post_div, filtering_mode) {
     post_div.innerHTML = "<div>Filtered</div>";
 }
 
@@ -69,8 +71,9 @@ const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
 /**
  * Main function
  * @param {Array} keywords
+ * @param {String} filtering_mode
  */
-function filter(keywords) {
+function filter(keywords, filtering_mode) {
     // Find stream div
     var stream_div = document.getElementsByClassName(STREAM_DIV_CLASS_NAME)[0];
 
@@ -88,7 +91,7 @@ function filter(keywords) {
         var post_div = all_post_divs[i];
         if (scrutinize_post_div(keywords, post_div)) {
             console.log("---- Caught one!");
-            eliminate_post_div(post_div);
+            filter_post_div(keywords, post_div, filtering_mode);
         }
     }
 }

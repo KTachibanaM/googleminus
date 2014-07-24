@@ -13,9 +13,13 @@ if (localStorage.getItem(FILTERING_MODE_KEY) === null) {
 
 // Hook up listener for getting keywords
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.method == "keywords")
+    if (request.method == "getPersistent")
     {
-        sendResponse({keywords: get_keywords()});
+        var response = {
+            keywords: get_keywords(),
+            filtering_mode: get_filtering_mode()
+        };
+        sendResponse(response);
     }
     else
     {
