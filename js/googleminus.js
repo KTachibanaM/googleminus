@@ -52,13 +52,15 @@ function scrutinize_post_div(keywords, post_div) {
 }
 
 /**
- * Filter the post div
- * @param {Array} keywords
+ * Wipe the post div out of stream completely
  * @param {HTMLDivElement} post_div
- * @param {String} filtering_mode
  */
-function filter_post_div(keywords, post_div, filtering_mode) {
+function all_out(post_div) {
     post_div.innerHTML = "<div>Filtered</div>";
+}
+
+function blacken_keywords(post_div, keywords) {
+    // TODO: In [post_div].innerHTML, replace every keyword with "████████"
 }
 
 /**
@@ -91,7 +93,21 @@ function filter(keywords, filtering_mode) {
         var post_div = all_post_divs[i];
         if (scrutinize_post_div(keywords, post_div)) {
             console.log("---- Caught one!");
-            filter_post_div(keywords, post_div, filtering_mode);
+            switch (filtering_mode) {
+                case "all_out": {
+                    all_out(post_div);
+                    break;
+                }
+                case "blacken_keywords": {
+                    blacken_keywords(post_div, keywords);
+                    break;
+                }
+                default:
+                {
+                    all_out(post_div);
+                }
+
+            }
         }
     }
 }
