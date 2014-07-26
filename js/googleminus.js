@@ -66,11 +66,16 @@ function all_out(post_div) {
  */
 function blacken_keywords(post_div, keywords) {
     for (var i = 0 ; i < keywords.length ; ++i) {
+        // Get keyword and build regex
         var the_keyword = keywords[i],
             regex = new RegExp(the_keyword, "g");
+
+        // Build replacement with the same length
         var replacement = new Array(the_keyword.length + 1).join("█");
+
+        // Replace the keyword
         var raw_html = post_div.innerHTML;
-        raw_html.replace(regex, replacement);
+        raw_html = raw_html.replace(regex, replacement);
         post_div.innerHTML = raw_html;
     }
 }
