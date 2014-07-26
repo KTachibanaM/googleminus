@@ -4,6 +4,7 @@ var new_keyword_text_field = document.getElementById("new_keyword_text_field");
 var new_keyword_button = document.getElementById("new_keyword_button");
 var all_out_radio = document.getElementById("all_out_radio");
 var blacken_keywords_radio = document.getElementById("blacken_keywords_radio");
+var auto_ignore_radio = document.getElementById("auto_ignore_radio");
 
 // Setup submit button listener
 new_keyword_button.onclick = function() {
@@ -25,6 +26,11 @@ blacken_keywords_radio.onclick = function () {
     init_filtering_mode_radios();
 };
 
+auto_ignore_radio.onclick = function() {
+    set_filtering_mode("auto_ignore");
+    init_filtering_mode_radios();
+};
+
 /**
  * Init keywords table
  */
@@ -42,12 +48,21 @@ function init_filtering_mode_radios() {
         {
             all_out_radio.checked = true;
             blacken_keywords_radio.checked = false;
+            auto_ignore_radio.checked = false;
             break;
         }
         case "blacken_keywords":
         {
             all_out_radio.checked = false;
             blacken_keywords_radio.checked = true;
+            auto_ignore_radio.checked = false;
+            break;
+        }
+        case "auto_ignore":
+        {
+            all_out_radio.checked = false;
+            blacken_keywords_radio.checked = false;
+            auto_ignore_radio.checked = true;
             break;
         }
     }

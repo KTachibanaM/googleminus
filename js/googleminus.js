@@ -80,6 +80,10 @@ function blacken_keywords(post_div, keywords) {
     }
 }
 
+function auto_ignore(post_div) {
+    // TODO
+}
+
 /**
  * Vulnerable class names
  */
@@ -117,6 +121,10 @@ function filter(keywords, filtering_mode) {
                 }
                 case "blacken_keywords": {
                     blacken_keywords(post_div, keywords);
+                    break;
+                }
+                case "auto_ignore": {
+                    auto_ignore(post_div);
                     break;
                 }
                 default:
