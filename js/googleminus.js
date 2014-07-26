@@ -59,8 +59,20 @@ function all_out(post_div) {
     post_div.innerHTML = "<div>Filtered</div>";
 }
 
+/**
+ * Replace keyword with black square in post div
+ * @param {HTMLDivElement} post_div
+ * @param {Array} keywords
+ */
 function blacken_keywords(post_div, keywords) {
-    // TODO: In [post_div].innerHTML, replace every keyword with "████████"
+    for (var i = 0 ; i < keywords.length ; ++i) {
+        var the_keyword = keywords[i],
+            regex = new RegExp(the_keyword, "g");
+        var replacement = new Array(the_keyword.length + 1).join("█");
+        var raw_html = post_div.innerHTML;
+        raw_html.replace(regex, replacement);
+        post_div.innerHTML = raw_html;
+    }
 }
 
 /**
