@@ -82,6 +82,8 @@ function blacken_keywords(post_div, keywords) {
 
 function auto_ignore(post_div) {
     // TODO
+    var options_span = post_div.getElementsByClassName(POST_OPTIONS_SPAN_CLASS_NAME)[0];
+    options_span.click();
 }
 
 /**
@@ -90,6 +92,7 @@ function auto_ignore(post_div) {
 const STREAM_DIV_CLASS_NAME = "pga";
 const POST_DIV_CLASS_NAME = "Yp yt Xa";
 const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
+const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
 
 /**
  * Main function
