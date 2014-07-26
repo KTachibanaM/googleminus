@@ -81,7 +81,7 @@ function blacken_keywords(post_div, keywords) {
 }
 
 function auto_ignore(post_div) {
-    // TODO
+    // TODO: simulate click
     var options_span = post_div.getElementsByClassName(POST_OPTIONS_SPAN_CLASS_NAME)[0];
     options_span.click();
 }
