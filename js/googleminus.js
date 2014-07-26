@@ -72,11 +72,11 @@ function blacken_keywords(post_div, keywords) {
 
         // Build replacement with the same length
         var replacement = new Array(the_keyword.length + 1).join("█");
+        replacement = "<span title='" + the_keyword + "'>" + replacement + "</span>";
 
         // Replace the keyword
         var raw_html = post_div.innerHTML;
-        raw_html = raw_html.replace(regex, replacement);
-        post_div.innerHTML = raw_html;
+        post_div.innerHTML = raw_html.replace(regex, replacement);
     }
 }
 
