@@ -5,14 +5,14 @@
     <title>Google minus options</title>
 </head>
 <body>
-<h3>Keywords</h3>
-<table id="keywords_table"></table>
-New key word: <input id="new_keyword_text_field" type="text" />
-<input id="new_keyword_button" type="button" value="Add"/>
-<h3>Filtering mode</h3>
-<input type="radio" id="all_out_radio">All out (Thw whole post will be replaced)<br>
-<input type="radio" id="blacken_keywords_radio">Blacken keywords (Only keywords will be replaced)<br>
-<input type="radio" id="auto_ignore_radio">Automatic ignore (Simulate clicking on "ignore this post" option)
+<table id="keywords_table">
+    <tr>
+        <th>Keyword</th>
+        <th>Filtering mode</th>
+        <th>Parameter</th>
+    </tr>
+</table>
+<script src="js/googleminus.js"></script>
 <script src="js/persistent.js"></script>
 <script src="js/options.js"></script>
 </body>

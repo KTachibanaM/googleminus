@@ -1,14 +1,84 @@
 const KEYWORDS_KEY = "keywords";
-const FILTERING_MODE_KEY = "filtering_mode";
 
 // Initialize keywords
 if (localStorage.getItem(KEYWORDS_KEY) === null) {
     localStorage.setItem(KEYWORDS_KEY, "[]");
+    console.log("Create keywords complete");
 }
 
-// Initialize filtering mode
-if (localStorage.getItem(FILTERING_MODE_KEY) === null) {
-    localStorage.setItem(FILTERING_MODE_KEY, "all_out");
+// Upgrades
+var keywords_ver = JSON.parse(localStorage.getItem(KEYWORDS_KEY)).ver;
+console.log("Keywords version " + keywords_ver);
+
+// Upgrade keywords from ver undefined to ver 1
+if (keywords_ver === undefined) {
+    var old_keywords = JSON.parse(localStorage.getItem(KEYWORDS_KEY));
+    var new_keywords = {
+        ver: 1,
+        keyword_configs: []
+    };
+    old_keywords.forEach(function(o) {
+        new_keywords.keyword_configs.push(new KeywordConfig(o, DEFAULT_FILTERING_MODE, ""))
+    });
+    localStorage.setItem(KEYWORDS_KEY, JSON.stringify(new_keywords));
+    console.log("Upgrade keywords from ver undefined to ver 1 complete");
+}
+
+/**
+ * Get all keyword configurations
+ * @returns {Array} KeywordConfig array
+ */
+function get_keyword_configs() {
+    return JSON.parse(localStorage.getItem(KEYWORDS_KEY)).keyword_configs;
+}
+
+/**
+ * Read keyword configurations, manipulate and save
+ * @param func function that does the manipulation
+ */
+function manipulate_keyword_configs(func) {
+    var keywords = JSON.parse(localStorage.getItem(KEYWORDS_KEY));
+    var keyword_configs = keywords.keyword_configs;
+    func(keyword_configs);
+    localStorage.setItem(KEYWORDS_KEY, JSON.stringify(keywords));
+}
+
+/**
+ * Add a keyword configuration
+ * @param {KeywordConfig} new_config
+ */
+function add_keyword_config(new_config) {
+    manipulate_keyword_configs(function(keyword_configs) {
+        keyword_configs.push(new_config);
+    });
+}
+
+/**
+ * Remove a keyword configuration
+ * @param {string} removed_keyword
+ */
+function remove_keyword_config(removed_keyword) {
+    manipulate_keyword_configs(function(keyword_configs) {
+        var index = keyword_configs.map(function (o) {
+            return o.keyword;
+        }).indexOf(removed_keyword);
+        if (index > -1) {
+            keyword_configs.splice(index, 1);
+        }
+    });
+}
+
+function modify_keyword_config(modified_keyword, filtering_mode, param) {
+    manipulate_keyword_configs(function(keyword_configs) {
+        var index = keyword_configs.map(function (o) {
+            return o.keyword;
+        }).indexOf(modified_keyword);
+        if (index > -1) {
+            var modified_config = keyword_configs[index];
+            modified_config.filtering_mode = filtering_mode;
+            modified_config.param = param;
+        }
+    });
 }
 
 // Hook up listener for getting keywords
@@ -16,8 +86,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getPersistent")
     {
         var response = {
-            keywords: get_keywords(),
-            filtering_mode: get_filtering_mode()
+            keywords: get_keyword_configs()
         };
         sendResponse(response);
     }
@@ -26,58 +95,3 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         sendResponse({});
     }
 });
-
-/**
- * Get keywords
- * @returns {Array} keywords array
- */
-function get_keywords() {
-    return JSON.parse(localStorage.getItem(KEYWORDS_KEY));
-}
-
-/**
- * Add a new keyword in keywords
- * @param {String} new_keyword
- */
-function add_keyword(new_keyword) {
-    var keywords = localStorage.getItem(KEYWORDS_KEY);
-    keywords = JSON.parse(keywords);
-
-    keywords.push(new_keyword);
-
-    keywords = JSON.stringify(keywords);
-    localStorage.setItem(KEYWORDS_KEY, keywords);
-}
-
-/**
- * Remove a keyword from keywords
- * @param {String} removed_keyword
- */
-function remove_keyword(removed_keyword) {
-    var keywords = localStorage.getItem(KEYWORDS_KEY);
-    keywords = JSON.parse(keywords);
-
-    var index = keywords.indexOf(removed_keyword);
-    if (index > -1) {
-        keywords.splice(index, 1);
-    }
-
-    keywords = JSON.stringify(keywords);
-    localStorage.setItem(KEYWORDS_KEY, keywords);
-}
-
-/**
- * Get current filtering mode
- * @returns {String}
- */
-function get_filtering_mode() {
-    return localStorage[FILTERING_MODE_KEY];
-}
-
-/**
- * Set current filtering mode
- * @param {String} filtering_mode
- */
-function set_filtering_mode(filtering_mode) {
-    localStorage[FILTERING_MODE_KEY] = filtering_mode;
-}

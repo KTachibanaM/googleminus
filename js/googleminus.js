@@ -5,14 +5,20 @@
  */
 
 /**
- * Dump an object's properties
- * @param  {Object} obj [Any objects]
+ * A keyword configuration
+ * @param {String} keyword
+ * @param {String} filtering_mode
+ * @param {String} param
+ * @constructor
  */
-function dump(obj) {
-    for (var i in obj) {
-        console.log(i + ": " + obj[i] + "\n");
-    }
+function KeywordConfig(keyword, filtering_mode, param) {
+    this.keyword = keyword;
+    this.filtering_mode = filtering_mode;
+    this.param = param
 }
+
+const FILTERING_MODES = ["all_out", "selective_out", "blacken_keywords", "auto_ignore"];
+const DEFAULT_FILTERING_MODE = "all_out";
 
 /**
  * Append one array to another
@@ -97,9 +103,8 @@ const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
 /**
  * Main function
  * @param {Array} keywords
- * @param {String} filtering_mode
  */
-function filter(keywords, filtering_mode) {
+function filter(keywords) {
     // Find stream div
     var stream_div = document.getElementsByClassName(STREAM_DIV_CLASS_NAME)[0];
 
@@ -113,29 +118,5 @@ function filter(keywords, filtering_mode) {
     my_append(all_post_divs, on_hover_post_divs);
 
     // Filter
-    for (var i = 0 ; i < all_post_divs.length ; ++i) {
-        var post_div = all_post_divs[i];
-        if (scrutinize_post_div(keywords, post_div)) {
-            console.log("---- Caught one!");
-            switch (filtering_mode) {
-                case "all_out": {
-                    all_out(post_div);
-                    break;
-                }
-                case "blacken_keywords": {
-                    blacken_keywords(post_div, keywords);
-                    break;
-                }
-                case "auto_ignore": {
-                    auto_ignore(post_div);
-                    break;
-                }
-                default:
-                {
-                    all_out(post_div);
-                }
 
-            }
-        }
-    }
 }
