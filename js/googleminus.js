@@ -64,7 +64,13 @@ function scrutinize_post_div(keywords, post_div) {
  * @param {String} param
  */
 function all_out(post_div, keyword, param) {
-    post_div.innerHTML = "<div>Filtered " + build_black_cover(keyword) + "</div>";
+    if (param === "completely") {
+        post_div.innerHTML = ""
+    }
+    else
+    {
+        post_div.innerHTML = "<div>Filtered " + build_black_cover(keyword) + "</div>";
+    }
 }
 
 /**

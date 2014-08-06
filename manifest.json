@@ -11,7 +11,7 @@
         }
     ],
     "background":{
-        "scripts":["js/persistent.js"],
+        "scripts":["chrome_js/persistent_runtime_messenger.js", "js/persistent.js"],
         "persistent": false
     },
     "options_page": "options.html"
