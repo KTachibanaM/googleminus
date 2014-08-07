@@ -141,7 +141,7 @@ function filter(keyword_configs) {
             })[0];
             var filtering_mode_caught = config_caught.filtering_mode;
             var param_caught = config_caught.param;
-            console.log("[googleminus] Caught " + keyword_caught + ", executing mode " + filtering_mode_caught);
+            console.log("[googleminus] Caught " + keyword_caught + ", executing mode " + filtering_mode_caught + " with param " + param_caught);
             window[filtering_mode_caught](post_div, keyword_caught, param_caught);
         }
     })
