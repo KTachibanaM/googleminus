@@ -2,8 +2,8 @@
  * Filter keywords on Google+ web page and hide corresponding posts
  * Modes:
  * (1) all_out
- *     i. default to completely wipe out the whole post
- *     ii. parameter "mercy" to show post link and filtered keyword
+ *     i. default to completely wipe out the post
+ *     ii. parameter "mercy" to show post link
  * (2) blacken_keywords
  *     i. default to black out the keyword
  * (3) replace_keywords
@@ -18,6 +18,7 @@
 const STREAM_DIV_CLASS_NAME = "pga";
 const POST_DIV_CLASS_NAME = "Yp yt Xa";
 const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
+const POST_LINK_IN_TIME_SPAN_CLASS_NAME = "o-U-s FI Rg";
 const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
 const POST_OPTION_IGNORE_THIS_POST_DIV_CLASS_NAME = "d-A G3";
 
@@ -34,7 +35,7 @@ function KeywordConfig(keyword, filtering_mode, param) {
     this.param = param
 }
 
-const FILTERING_MODES = ["all_out", "blacken_keywords", "replace_keywords", "auto_ignore"];
+const FILTERING_MODES = ["all_out", "blacken_keywords", "replace_keywords"];
 const DEFAULT_FILTERING_MODE = FILTERING_MODES[0];
 
 /**
@@ -82,7 +83,8 @@ function scrutinize_post_div(keywords, post_div) {
  */
 function all_out(post_div, keyword, param) {
     if (param === "mercy") {
-        // TODO: show post link and filtered keyword
+        var post_link = post_div.getElementsByClassName(POST_LINK_IN_TIME_SPAN_CLASS_NAME)[0].href;
+        post_div.innerHTML = "<div><a href='" + post_link + "'>Filtered</a></div>"
     }
     else
     {
