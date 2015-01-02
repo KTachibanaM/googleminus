@@ -6,9 +6,20 @@
  *     ii. parameter "mercy" to show post link and filtered keyword
  * (2) blacken_keywords
  *     i. default to black out the keyword
- * (3) auto_ignore
- *     i. default to simulate "ignore the post" click
+ * (3) replace_keywords
+ *     i. default to replace the keyword with parameter
+ * (4) auto_ignore
+ *     i. default to simulate "ignore this post" click
  */
+
+/**
+ * Vulnerable class names
+ */
+const STREAM_DIV_CLASS_NAME = "pga";
+const POST_DIV_CLASS_NAME = "Yp yt Xa";
+const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
+const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
+const POST_OPTION_IGNORE_THIS_POST_DIV_CLASS_NAME = "d-A G3";
 
 /**
  * A keyword configuration
@@ -23,8 +34,8 @@ function KeywordConfig(keyword, filtering_mode, param) {
     this.param = param
 }
 
-const FILTERING_MODES = ["all_out", "blacken_keywords", "auto_ignore"];
-const DEFAULT_FILTERING_MODE = "all_out";
+const FILTERING_MODES = ["all_out", "blacken_keywords", "replace_keywords", "auto_ignore"];
+const DEFAULT_FILTERING_MODE = FILTERING_MODES[0];
 
 /**
  * Append one array to another
@@ -87,7 +98,7 @@ function all_out(post_div, keyword, param) {
  */
 function blacken_keywords(post_div, keyword, param) {
     var regex = new RegExp(keyword, "g");
-    var replacement = build_black_cover(keyword);
+    var replacement = new Array(keyword.length + 1).join("█");
 
     // Replace the keyword
     var raw_html = post_div.innerHTML;
@@ -95,27 +106,34 @@ function blacken_keywords(post_div, keyword, param) {
 }
 
 /**
- * Build a span with keyword blacked out
- * @param {String} keyword
- * @returns {string} raw html for the span
+ * Replace keyword with param
+ * @param {HTMLDivElement} post_div
+ * @param {Array} keyword
+ * @param {String} param
  */
-function build_black_cover(keyword) {
-    return new Array(keyword.length + 1).join("█");
-}
+function replace_keywords(post_div, keyword, param) {
+    var regex = new RegExp(keyword, "g");
 
-function auto_ignore(post_div, keyword, param) {
-    // TODO: simulate click
-    var options_span = post_div.getElementsByClassName(POST_OPTIONS_SPAN_CLASS_NAME)[0];
-    options_span.click();
+    // Replace the keyword
+    var raw_html = post_div.innerHTML;
+    post_div.innerHTML = raw_html.replace(regex, param);
 }
 
 /**
- * Vulnerable class names
+ * Simulate "ignore this post" click
+ * @param {HTMLDivElement} post_div
+ * @param {Array} keyword
+ * @param {String} param
  */
-const STREAM_DIV_CLASS_NAME = "pga";
-const POST_DIV_CLASS_NAME = "Yp yt Xa";
-const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
-const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
+function auto_ignore(post_div, keyword, param) {
+    var options_span = post_div.getElementsByClassName(POST_OPTIONS_SPAN_CLASS_NAME)[0];
+    options_span.click();
+    setTimeout(function() {
+        console.log("triggered");
+        var ignore_this_post_div = post_div.getElementsByClassName(POST_OPTION_IGNORE_THIS_POST_DIV_CLASS_NAME)[0];
+        ignore_this_post_div.click();
+    }, 3000);
+}
 
 /**
  * Main function
