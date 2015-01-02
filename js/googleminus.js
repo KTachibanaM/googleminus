@@ -1,7 +1,14 @@
 /*
- * Filter keywords on Google+ webpage and hide corresponding posts
- * Notice that current filtering mechanism is VERY ROUGH
- * Use with caution
+ * Filter keywords on Google+ web page and hide corresponding posts
+ * Modes:
+ * (1) all_out
+ *     i. default to completely wipe out the whole post
+ *     ii. parameter "mercy" to show post link and filtered keyword
+ * (2) blacken_keywords
+ *     i. default to black out the keyword
+ *     ii. parameter to replace the keyword with parameter itself
+ * (3) auto_ignore
+ *     i. default to simulate "ignore the post" click
  */
 
 /**
@@ -17,7 +24,7 @@ function KeywordConfig(keyword, filtering_mode, param) {
     this.param = param
 }
 
-const FILTERING_MODES = ["all_out", "blacken_keywords"];
+const FILTERING_MODES = ["all_out", "blacken_keywords", "auto_ignore"];
 const DEFAULT_FILTERING_MODE = "all_out";
 
 /**
@@ -64,12 +71,12 @@ function scrutinize_post_div(keywords, post_div) {
  * @param {String} param
  */
 function all_out(post_div, keyword, param) {
-    if (param === "completely") {
-        post_div.innerHTML = ""
+    if (param === "mercy") {
+        // TODO: show post link and filtered keyword
     }
     else
     {
-        post_div.innerHTML = "<div>Filtered " + build_black_cover(keyword) + "</div>";
+        post_div.innerHTML = "";
     }
 }
 
