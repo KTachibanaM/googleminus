@@ -6,7 +6,6 @@
  *     ii. parameter "mercy" to show post link and filtered keyword
  * (2) blacken_keywords
  *     i. default to black out the keyword
- *     ii. parameter to replace the keyword with parameter itself
  * (3) auto_ignore
  *     i. default to simulate "ignore the post" click
  */
@@ -88,7 +87,7 @@ function all_out(post_div, keyword, param) {
  */
 function blacken_keywords(post_div, keyword, param) {
     var regex = new RegExp(keyword, "g");
-    var replacement = (param === "") ? build_black_cover(keyword) : param;
+    var replacement = build_black_cover(keyword);
 
     // Replace the keyword
     var raw_html = post_div.innerHTML;
@@ -96,13 +95,12 @@ function blacken_keywords(post_div, keyword, param) {
 }
 
 /**
- * Build a span with keyword blacked out but still visible when on hover
+ * Build a span with keyword blacked out
  * @param {String} keyword
  * @returns {string} raw html for the span
  */
 function build_black_cover(keyword) {
-    var replacement = new Array(keyword.length + 1).join("█");
-    return "<span title='" + keyword + "'>" + replacement + "</span>";
+    return new Array(keyword.length + 1).join("█");
 }
 
 function auto_ignore(post_div, keyword, param) {
