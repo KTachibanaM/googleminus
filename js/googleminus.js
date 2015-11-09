@@ -1,3 +1,7 @@
+String.prototype.contains = function (that) {
+    return this.indexOf(that) > -1;
+};
+
 /*
  * Filter keywords on Google+ web page and hide corresponding posts
  * Modes:
@@ -39,27 +43,6 @@ const FILTERING_MODES = ["all_out", "blacken_keywords", "replace_keywords"];
 const DEFAULT_FILTERING_MODE = FILTERING_MODES[0];
 
 /**
- * Append one array to another
- * @param  {Array} arr1 Array to be appended
- * @param  {Array} arr2 Array appended
- */
-function my_append(arr1, arr2) {
-	for (var i = 0 ; i < arr2.length ; ++i) {
-		arr1.push(arr2[i]);
-	}
-}
-
-/**
- * Whether one string contains another substring
- * @param  {String} str1 The string
- * @param  {String} str2 Substring
- * @return {boolean}
- */
-function my_contains(str1, str2) {
-	return str1.indexOf(str2) > -1;
-}
-
-/**
  * Whether a post div contains keyword
  * @param   {Array} keywords
  * @param   {HTMLDivElement} post_div
@@ -68,7 +51,7 @@ function my_contains(str1, str2) {
 function scrutinize_post_div(keywords, post_div) {
 	for (var i = 0 ; i < keywords.length ; ++i) {
 		var keyword = keywords[i];
-		if (my_contains(post_div.outerText, keyword)) {
+		if (post_div.outerText.contains(keyword)) {
 			return keyword;
 		}
 	}
@@ -151,8 +134,8 @@ function filter(keyword_configs) {
 
     // Add all post divs
     var all_post_divs = [];
-    my_append(all_post_divs, post_divs);
-    my_append(all_post_divs, on_hover_post_divs);
+    all_post_divs.concat(post_divs);
+    all_post_divs.concat(on_hover_post_divs);
 
     // Filter
     var keyword_set = keyword_configs.map(function(config) {
