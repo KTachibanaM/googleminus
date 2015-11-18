@@ -12,19 +12,21 @@ String.prototype.contains = function (that) {
  *     i. default to black out the keyword
  * (3) replace_keywords
  *     i. default to replace the keyword with parameter
- * (4) auto_ignore
- *     i. default to simulate "ignore this post" click
  */
+
+/**
+ * 2015/11/18
+ * Determine UI version according to presence of hamburger menu button
+ */
+const new_ui = document.getElementsByClassName("TdBWGb").length !== 0;
 
 /**
  * Vulnerable class names
  */
-const STREAM_DIV_CLASS_NAME = "pga";
-const POST_DIV_CLASS_NAME = "Yp yt Xa";
-const ON_HOVER_POST_DIV_CLASS_NAME = "Yp yt Xa va";
-const POST_LINK_IN_TIME_SPAN_CLASS_NAME = "o-U-s FI Rg";
-const POST_OPTIONS_SPAN_CLASS_NAME = "d-s xw if";
-const POST_OPTION_IGNORE_THIS_POST_DIV_CLASS_NAME = "d-A G3";
+const STREAM_DIV_CLASS_NAME = new_ui ? "jx5iDb pd4VHb" : "pga";
+const POST_DIV_CLASS_NAME = new_ui ? "Ihwked UB0dDd GcESAf" : "Yp yt Xa";
+const ON_HOVER_POST_DIV_CLASS_NAME = new_ui ? "Ihwked UB0dDd GcESAf" : "Yp yt Xa va";
+const POST_LINK_IN_TIME_SPAN_CLASS_NAME = new_ui ? "qXj2He" : "o-U-s FI Rg";
 
 /**
  * A keyword configuration
@@ -102,22 +104,6 @@ function replace_keywords(post_div, keyword, param) {
     // Replace the keyword
     var raw_html = post_div.innerHTML;
     post_div.innerHTML = raw_html.replace(regex, param);
-}
-
-/**
- * Simulate "ignore this post" click
- * @param {HTMLDivElement} post_div
- * @param {Array} keyword
- * @param {String} param
- */
-function auto_ignore(post_div, keyword, param) {
-    var options_span = post_div.getElementsByClassName(POST_OPTIONS_SPAN_CLASS_NAME)[0];
-    options_span.click();
-    setTimeout(function() {
-        console.log("triggered");
-        var ignore_this_post_div = post_div.getElementsByClassName(POST_OPTION_IGNORE_THIS_POST_DIV_CLASS_NAME)[0];
-        ignore_this_post_div.click();
-    }, 3000);
 }
 
 /**

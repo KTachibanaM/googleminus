@@ -11,7 +11,7 @@ chrome.runtime.sendMessage({method: "getPersistent"}, function(response) {
 
     chrome.extension.sendMessage({}, function(response) {
         console.log("[googleminus] Start filtering with interval " + interval);
-        var readyStateCheckInterval = setInterval(function() {
+        setInterval(function() {
             if (document.readyState === "complete") {
                 filter(keywords);
             }
