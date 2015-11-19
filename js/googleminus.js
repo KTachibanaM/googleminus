@@ -19,6 +19,7 @@ String.prototype.contains = function (that) {
  * Determine UI version according to presence of hamburger menu button
  */
 const new_ui = document.getElementsByClassName("TdBWGb").length !== 0;
+console.log("[googleminus] new_ui " + new_ui);
 
 /**
  * Vulnerable class names
@@ -115,13 +116,11 @@ function filter(keyword_configs) {
     var stream_div = document.getElementsByClassName(STREAM_DIV_CLASS_NAME)[0];
 
     // Find post divs
-    var post_divs = stream_div.getElementsByClassName(POST_DIV_CLASS_NAME);
-    var on_hover_post_divs = stream_div.getElementsByClassName(ON_HOVER_POST_DIV_CLASS_NAME);
+    var post_divs = Array.prototype.slice.call(stream_div.getElementsByClassName(POST_DIV_CLASS_NAME));
+    var on_hover_post_divs = Array.prototype.slice.call(stream_div.getElementsByClassName(ON_HOVER_POST_DIV_CLASS_NAME));
 
     // Add all post divs
-    var all_post_divs = [];
-    all_post_divs.concat(post_divs);
-    all_post_divs.concat(on_hover_post_divs);
+    var all_post_divs = post_divs.concat(on_hover_post_divs);
 
     // Filter
     var keyword_set = keyword_configs.map(function(config) {
