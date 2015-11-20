@@ -26,7 +26,7 @@ console.log("[googleminus] new_ui " + new_ui);
  */
 const STREAM_DIV_CLASS_NAME = new_ui ? "jx5iDb pd4VHb" : "pga";
 const POST_DIV_CLASS_NAME = new_ui ? "Ihwked UB0dDd GcESAf" : "Yp yt Xa";
-const ON_HOVER_POST_DIV_CLASS_NAME = new_ui ? "Ihwked UB0dDd GcESAf" : "Yp yt Xa va";
+const ON_HOVER_POST_DIV_CLASS_NAME = new_ui ? "Ihwked UB0dDd GcESAf iFJd6c" : "Yp yt Xa va";
 const POST_LINK_IN_TIME_SPAN_CLASS_NAME = new_ui ? "qXj2He" : "o-U-s FI Rg";
 
 /**
