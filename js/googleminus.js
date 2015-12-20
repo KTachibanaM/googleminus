@@ -54,7 +54,7 @@ const DEFAULT_FILTERING_MODE = FILTERING_MODES[0];
 function scrutinize_post_div(keywords, post_div) {
 	for (var i = 0 ; i < keywords.length ; ++i) {
 		var keyword = keywords[i];
-		if (post_div.outerText.contains(keyword)) {
+		if (post_div.outerText.match(keyword) !== null) {
 			return keyword;
 		}
 	}

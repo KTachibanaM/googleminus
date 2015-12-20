@@ -116,7 +116,7 @@ var KeywordTable = React.createClass({
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Keyword</th>
+                        <th>RegEx</th>
                         <th>Filtering mode</th>
                         <th>Parameter</th>
                         <th>Action</th>
@@ -132,7 +132,7 @@ var KeywordTable = React.createClass({
                                 type="text"
                                 className="form-control"
                                 value={this.state.new_keyword}
-                                placeholder="New keyword"
+                                placeholder="New RegEx"
                                 onChange={this.handleNewKeywordChange}/>
                         </td>
                         <td>
