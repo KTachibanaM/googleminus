@@ -7,12 +7,10 @@ var KeywordRow = React.createClass({
         var new_filtering_mode = e.target.value;
         this.props.changeHandler(this.props.config.keyword, new_filtering_mode, this.props.config.param);
     },
+    handleDelete: function () {
+        this.props.deleteHandler(this.props.config.keyword);
+    },
     render: function () {
-        var filtering_mode_options = FILTERING_MODES.map(function (filtering_mode) {
-            return (
-                <option key={filtering_mode} value={filtering_mode}>{filtering_mode}</option>
-            );
-        });
         return (
             <tr>
                 <td>{this.props.config.keyword}</td>
@@ -20,16 +18,17 @@ var KeywordRow = React.createClass({
                     <select
                         defaultValue={this.props.config.filtering_mode}
                         onChange={this.handleFilteringModeChange}>
-                        {filtering_mode_options}
+                        {this.props.filteringModeOptions}
                     </select>
                 </td>
                 <td>
-                    <input type="text"
-                           defaultValue={this.props.config.param}
-                           onChange={this.handleParamChange}/>
+                    <input
+                        type="text"
+                        defaultValue={this.props.config.param}
+                        onChange={this.handleParamChange}/>
                 </td>
                 <td>
-                    <button>Delete</button>
+                    <button onClick={this.handleDelete}>Delete</button>
                 </td>
             </tr>
         )
@@ -39,16 +38,70 @@ var KeywordRow = React.createClass({
 var KeywordTable = React.createClass({
     getInitialState: function () {
         return {
-            configs: this.props.configs
+            configs: this.props.configs,
+            new_keyword: "",
+            new_filtering_mode: FILTERING_MODES[0],
+            new_param: ""
         };
     },
     handleChange: function (keyword, filtering_mode, param) {
         modify_keyword_config(keyword, filtering_mode, param);
     },
+    handleDelete: function (keyword) {
+        remove_keyword_config(keyword);
+
+        var new_state = this.state;
+        var index = -1;
+        new_state.configs.forEach(function (config, i) {
+            if (config.keyword === keyword) {
+                index = i;
+            }
+        });
+        if (index != -1) {
+            new_state.configs.splice(index, 1);
+        }
+        this.setState(new_state);
+    },
+    handleNewKeywordChange: function (e) {
+        var new_state = this.state;
+        new_state.new_keyword = e.target.value;
+        this.setState(new_state);
+    },
+    handleNewFilteringModeChange: function (e) {
+        var new_state = this.state;
+        new_state.new_filtering_mode = e.target.value;
+        this.setState(new_state);
+    },
+    handleNewParamChange: function (e) {
+        var new_state = this.state;
+        new_state.new_param = e.target.value;
+        this.setState(new_state);
+    },
+    handleAdd: function () {
+        var new_config = new KeywordConfig(this.state.new_keyword, this.state.new_filtering_mode, this.state.new_param);
+        add_keyword_config(new_config);
+
+        var new_state = this.state;
+        new_state.configs.push(new_config);
+        new_state.new_keyword = "";
+        new_state.new_filtering_mode = FILTERING_MODES[0];
+        new_state.new_param = "";
+        this.setState(new_state);
+    },
     render: function () {
+        var filtering_mode_options = FILTERING_MODES.map(function (filtering_mode) {
+            return (
+                <option key={filtering_mode} value={filtering_mode}>{filtering_mode}</option>
+            );
+        });
         var rootContext = this;
         var rows = this.state.configs.map(function (config) {
-            return <KeywordRow key={config.keyword} config={config} changeHandler={rootContext.handleChange}/>
+            return <KeywordRow
+                        key={config.keyword}
+                        config={config}
+                        filteringModeOptions={filtering_mode_options}
+                        changeHandler={rootContext.handleChange}
+                        deleteHandler={rootContext.handleDelete}/>
         });
         return (
             <table>
@@ -63,6 +116,33 @@ var KeywordTable = React.createClass({
                 <tbody>
                     {rows}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input
+                                type="text"
+                                value={this.state.new_keyword}
+                                placeholder="New keyword"
+                                onChange={this.handleNewKeywordChange}/>
+                        </td>
+                        <td>
+                            <select
+                                value={this.state.new_filtering_mode}
+                                onChange={this.handleNewFilteringModeChange}>
+                                {filtering_mode_options}
+                            </select>
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                value={this.state.new_param}
+                                onChange={this.handleNewParamChange}/>
+                        </td>
+                        <td>
+                            <button onClick={this.handleAdd}>Add</button>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         )
     }
