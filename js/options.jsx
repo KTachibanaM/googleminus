@@ -1,10 +1,24 @@
 var KeywordRow = React.createClass({
     render: function () {
+        var filtering_mode_options = FILTERING_MODES.map(function (filtering_mode) {
+            return (
+                <option value={filtering_mode}>{filtering_mode}</option>
+            );
+        });
         return (
             <tr>
                 <td>{this.props.config.keyword}</td>
-                <td>{this.props.config.filtering_mode}</td>
-                <td>{this.props.config.param}</td>
+                <td>
+                    <select value={this.props.config.filtering_mode}>
+                        {filtering_mode_options}
+                    </select>
+                </td>
+                <td>
+                    <input type="text" default={this.props.config.param}/>
+                </td>
+                <td>
+                    <button>Delete</button>
+                </td>
             </tr>
         )
     }
@@ -17,7 +31,7 @@ var KeywordTable = React.createClass({
         };
     },
     render: function () {
-        var lines = this.state.configs.map(function (config) {
+        var rows = this.state.configs.map(function (config) {
             return <KeywordRow config={config}/>
         });
         return (
@@ -28,7 +42,7 @@ var KeywordTable = React.createClass({
                     <th>Parameter</th>
                     <th>Action</th>
                 </tr>
-                {lines}
+                {rows}
             </table>
         )
     }
