@@ -68,6 +68,12 @@ function remove_keyword_config(removed_keyword) {
     });
 }
 
+/**
+ * Modify a keyword config
+ * @param {string} modified_keyword
+ * @param {string} filtering_mode
+ * @param {string} param
+ */
 function modify_keyword_config(modified_keyword, filtering_mode, param) {
     manipulate_keyword_configs(function(keyword_configs) {
         var index = keyword_configs.map(function (o) {
@@ -79,4 +85,18 @@ function modify_keyword_config(modified_keyword, filtering_mode, param) {
             modified_config.param = param;
         }
     });
+}
+
+/**
+ * Check whether a keyword config exists by keyword
+ * @param {string} keyword
+ */
+function check_keyword_config_exists(keyword) {
+    var index = -1;
+    get_keyword_configs().forEach(function (config, i) {
+        if (config.keyword === keyword) {
+            index = i;
+        }
+    });
+    return index !== -1;
 }

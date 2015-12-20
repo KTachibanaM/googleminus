@@ -57,7 +57,7 @@ var KeywordTable = React.createClass({
                 index = i;
             }
         });
-        if (index != -1) {
+        if (index !== -1) {
             new_state.configs.splice(index, 1);
         }
         this.setState(new_state);
@@ -78,15 +78,22 @@ var KeywordTable = React.createClass({
         this.setState(new_state);
     },
     handleAdd: function () {
-        var new_config = new KeywordConfig(this.state.new_keyword, this.state.new_filtering_mode, this.state.new_param);
-        add_keyword_config(new_config);
-
         var new_state = this.state;
-        new_state.configs.push(new_config);
-        new_state.new_keyword = "";
-        new_state.new_filtering_mode = FILTERING_MODES[0];
-        new_state.new_param = "";
-        this.setState(new_state);
+        if (!check_keyword_config_exists(this.state.new_keyword)) {
+            var new_config = new KeywordConfig(this.state.new_keyword, this.state.new_filtering_mode, this.state.new_param);
+            add_keyword_config(new_config);
+
+            new_state.configs.push(new_config);
+            new_state.new_keyword = "";
+            new_state.new_filtering_mode = FILTERING_MODES[0];
+            new_state.new_param = "";
+            this.setState(new_state);
+        } else {
+            alert("Keyword " + this.state.new_keyword + " exists!");
+
+            new_state.new_keyword = "";
+            this.setState(new_state);
+        }
     },
     render: function () {
         var filtering_mode_options = FILTERING_MODES.map(function (filtering_mode) {
