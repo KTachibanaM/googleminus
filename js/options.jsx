@@ -16,6 +16,7 @@ var KeywordRow = React.createClass({
                 <td>{this.props.config.keyword}</td>
                 <td>
                     <select
+                        className="form-control"
                         defaultValue={this.props.config.filtering_mode}
                         onChange={this.handleFilteringModeChange}>
                         {this.props.filteringModeOptions}
@@ -24,11 +25,12 @@ var KeywordRow = React.createClass({
                 <td>
                     <input
                         type="text"
+                        className="form-control"
                         defaultValue={this.props.config.param}
                         onChange={this.handleParamChange}/>
                 </td>
                 <td>
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
                 </td>
             </tr>
         )
@@ -111,7 +113,7 @@ var KeywordTable = React.createClass({
                         deleteHandler={rootContext.handleDelete}/>
         });
         return (
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Keyword</th>
@@ -128,12 +130,14 @@ var KeywordTable = React.createClass({
                         <td>
                             <input
                                 type="text"
+                                className="form-control"
                                 value={this.state.new_keyword}
                                 placeholder="New keyword"
                                 onChange={this.handleNewKeywordChange}/>
                         </td>
                         <td>
                             <select
+                                className="form-control"
                                 value={this.state.new_filtering_mode}
                                 onChange={this.handleNewFilteringModeChange}>
                                 {filtering_mode_options}
@@ -142,11 +146,12 @@ var KeywordTable = React.createClass({
                         <td>
                             <input
                                 type="text"
+                                className="form-control"
                                 value={this.state.new_param}
                                 onChange={this.handleNewParamChange}/>
                         </td>
                         <td>
-                            <button onClick={this.handleAdd}>Add</button>
+                            <button className="btn btn-success" onClick={this.handleAdd}>Add</button>
                         </td>
                     </tr>
                 </tfoot>
