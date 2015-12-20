@@ -3,35 +3,13 @@
 	<head lang="en">
 		<meta charset="UTF-8">
 		<title>Google minus options</title>
+		<script src="js/libs/react.js"></script>
+		<script src="js/libs/react-dom.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-select.min.css">
 	</head>
 	<body>
-		<div class="container table-striped table-hover" style="width:600px">
-			<br>
-			<ul class="nav nav-pills" role="tablist">	
-				<li role="presentation" class="active"><a href="#">Keyword</a></li>
-			</ul>
-			<br>
-			<div class="panel panel-default">
-				<div class="table-responsive">
-					<table class="table" id="keywords_table">
-						<tr>
-							<th>Keyword</th>
-							<th>Filtering mode</th>
-							<th>Parameter</th>
-							<th>Operation</th>
-						</tr>
-					</table>
-					<h5 style="margin-left:10px">You need to refresh Google+ web page for all changes to work!</h5>
-				</div>
-			</div>
-		</div>
-		<script src="js/libs/jquery-1.11.1.min.js"></script>
-		<script src="js/libs/bootstrap.min.js"></script>
-		<script src="js/libs/bootstrap-select.min.js"></script>
-		<script src="js/googleminus.js"></script>
-		<script src="js/persistent.js"></script>
+		<div id="app"></div>
 		<script src="js/options.js"></script>
 	</body>
 </html>
