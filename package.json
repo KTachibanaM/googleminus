@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "postinstall": "npm install -g babel-cli",
+    "postinstall": "npm install -g babel-cli && npm install -g bower && bower install",
     "dev": "babel --presets react js/options.jsx --watch --out-file js/options.js",
     "build": "babel --presets react js/options.jsx --out-file js/options.js",
     "test": "echo \"Error: no test specified\" && exit 1"
