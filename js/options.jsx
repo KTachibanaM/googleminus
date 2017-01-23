@@ -40,7 +40,7 @@ var KeywordRow = React.createClass({
 var KeywordTable = React.createClass({
     getInitialState: function () {
         return {
-            configs: this.props.configs,
+            configs: get_keyword_configs(),
             new_keyword: "",
             new_filtering_mode: FILTERING_MODES[0],
             new_param: ""
@@ -160,9 +160,41 @@ var KeywordTable = React.createClass({
     }
 });
 
-var configs = get_keyword_configs();
+var Options = React.createClass({
+    getInitialState: function () {
+        return {
+            interval: get_interval()
+        }
+    },
+    handleChange: function (e) {
+        var new_interval = e.target.value;
+        set_interval(new_interval);
+        var new_state = this.state;
+        new_state.interval = new_interval;
+        this.setState(new_state);
+    },
+    render: function () {
+        return (
+            <input type="number" className="form-control" value={this.state.interval} onChange={this.handleChange}/>
+        )
+    }
+});
+
+var App = React.createClass({
+    render: function () {
+        return (
+            <div className="app">
+                <p>You need to refresh Google+ page to enable new configs or options</p>
+                <h5>Keywords</h5>
+                <KeywordTable/>
+                <h5>Options</h5>
+                <Options/>
+            </div>
+        )
+    }
+});
 
 ReactDOM.render(
-    <KeywordTable configs={configs}/>,
+    <App/>,
     document.getElementById('app')
 );

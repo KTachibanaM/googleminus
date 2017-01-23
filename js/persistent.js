@@ -100,3 +100,19 @@ function check_keyword_config_exists(keyword) {
     });
     return index !== -1;
 }
+
+const INTERVAL_KEY = "interval";
+
+// Initialize interval
+if (localStorage.getItem(INTERVAL_KEY) === null) {
+    localStorage.setItem(INTERVAL_KEY, 300);
+    console.log("Create interval complete");
+}
+
+function get_interval() {
+    return localStorage.getItem(INTERVAL_KEY);
+}
+
+function set_interval(new_interval) {
+    localStorage.setItem(INTERVAL_KEY, new_interval)
+}

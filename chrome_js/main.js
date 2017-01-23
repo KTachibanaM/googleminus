@@ -1,7 +1,6 @@
-const interval = 300;
-
 chrome.runtime.sendMessage({method: "getPersistent"}, function(response) {
     var keywords = response.keywords;
+    var interval = response.interval;
     console.log("[googleminus] Greetings from Google minus!");
     console.log("[googleminus] RegEx's are: ");
     keywords.forEach(function(o) {
