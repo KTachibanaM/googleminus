@@ -1,11 +1,18 @@
-googleminus
-===========
+# googleminus
 
 Filter keywords on Google+ webpage and hide corresponding posts
 
-## Develop for Chrome extension
+## Prepare
+```bash
+npm install
 ```
-npm install --global babel-cli
-npm install babel-preset-react
-babel --presets react js/options.jsx --watch --out-file js/options.js
+
+## Develop and watch
+```bash
+npm run dev
+```
+
+## Build
+```bash
+npm run build
 ```
